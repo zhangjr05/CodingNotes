@@ -1,30 +1,18 @@
 import os
-files = os.listdir(r'D:\mypython\grammar')
-for f in files:
-    print(f)
 
+# 当前脚本绝对路径
+current_script_path = os.path.abspath(__file__)
+print(current_script_path)
 
-# 文件操作
-os.remove(path='file.txt')  # 删除文件，不可删除目录
-os.rename(src='old.txt', dst='new.txt') # 重命名文件或目录
-os.stat(path='file.txt')    # 获取文件属性，如大小，修改时间等
+# 当前脚本所在目录绝对路径
+current_directory_path = os.path.dirname(current_script_path)
+print(current_directory_path)
 
-# 目录操作
-os.mkdir(path='new_folder') # 创建单层目录
-os.makedirs(path='a/b/c')   # 递归创建多层目录
-os.rmdir(path='empty_folder')   # 删除空目录，非空时报错
-os.listdir(path='.')    # 列出当前目录所有文件
+# 获取同级目录下另一个文件的绝对路径
+another_file_path = os.path.join(current_directory_path, "homework.txt")
+print(another_file_path)
 
-# 路径处理
-os.getcwd() # 获取当前工作目录
-os.chdir(path='../')    # 切换当前工作目录（这个非常重要）
-os.path()   # 子模块
-
-# 系统命令
-os.system(command='cls')    # 执行系统命令
-os.environ()
-
-# 高级功能
-os.walk(top='.')    # 递归遍历目标树
-os.urandom(n=16)    # 生成安全随机字节（适用于加密操作）
+# 文件读写
+with open(another_file_path, 'a', encoding='utf-8') as f:
+    f.write("Hello, world!")
 
