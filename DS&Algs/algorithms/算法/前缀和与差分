@@ -1,0 +1,50 @@
+# 前缀和与差分
+
+def build_prefix_sum(a: list[int]) -> list[int]:
+    '''构建前缀和数组 prefix[i]表示原数组前i个元素之和'''
+    n = len(a)
+    prefix = [0] * (n + 1)
+    for i in range(n):
+        prefix[i + 1] = prefix[i] + a[i]
+    return prefix
+
+
+def bulid_diff_array(a: list[int]) -> list[int]:
+    '''构建差分数组'''
+    n = len(a)
+    diff = [0] * n
+    diff[0] = a[0]
+    for i in range(1, n):
+        diff[i] = a[i] - a[i -1]
+    return diff
+
+def range_update(diff: list[int], l: int, r: int, val: int) -> None:
+    '''区间更新: 对原数组的区间 [l, r] 中的每个元素都加上值 val'''
+    diff[l] += val
+    if r + 1 < len(diff):
+        diff[r + 1] -= val
+
+def restore_original(diff: list[int]) -> list[int]:
+    '''还原原数组'''
+    n = len(diff)
+    original = [0] * n
+    original[0] = diff[0]
+    for i in range(1, n):
+        original[i] = original[i - 1] + diff[i]
+    return original
+
+
+
+# 实例
+
+# 有n个航班，航班编号从1到n。有m个预订记录，每个记录包含(i, j, k)，表示从i到j号航班每个航班预订了k个座位。求最终每个航班预订的座位数。
+def corpFlightBookings(bookings: list[tuple[int, int, int]], n: int) -> list[int]:
+    diff = [0] * (n + 1)
+    for i, j, k in bookings:
+        diff[i - 1] += k
+        diff[j] -= k
+    result = [0] * n
+    result[0] = diff[0]
+    for i in range(1, n):
+        result[i] = result[i - 1] + diff[i]
+    return result
