@@ -1,5 +1,6 @@
 import re
 
+
 # 匹配规则
 \w  # 字母数字下划线
 \W  # 非字母数字下划线
@@ -15,8 +16,8 @@ import re
 \t  # 一个制表符
 \b  # 单词边界
 \B  # 非单词边界
-^   # 从头开始
-$   # 直到结尾
+^   # 匹配开头
+$   # 匹配结尾
 .   # 任意字符，除了换行符，当re.DOTALL标记被指定时，则可以匹配包括换行符的任意字符
 \.  # 表示.本身
 
@@ -33,20 +34,62 @@ $   # 直到结尾
 ()  # 捕获组
 (?:)    # 非捕获组
 (?:abc|def) # |表示或
+\1  # 引用第一个捕获组
+
+
+
+# re methods
 
 # pattern   # 匹配的正则表达式
 # string    # 要匹配的字符串
 # flags     # 标志位，用于控制正则表达式的匹配方式
 
 
-match = re.match(pattern=None, string=None, flags=None)    # 只匹配开始
-re.search(pattern=None, string=None, flags=None)   # 匹配整个str，直到找到第一个匹配
-re.findall(pattern=None, string=None, flags=None)  # 找到所有，返回列表
-re.sub(pattern=None, repl=None, string=None, count=0, flags=None) # 替换，count表示替换最大次数，默认0表示替换所有的匹配
-re.comlile(pattern, flags=0)    # 将正则字符串编译成正则表达式对象，以便在后面的匹配中复用
+# re.compile()  将正则表达式模式编译成一个可重用的正则表达式对象
+pattern = re.compile(pattern=r'\d+')
+matches = pattern.findall("今天是2025年4月15日")
+
+# re.match() # 尝试从字符串的开始位置匹配模式
+match = re.match(pattern=pattern, string=string, flags=None)
+match.group()  # 返回整个匹配的字符串
+
+# re.search()  # 扫描整个字符串，找到第一个匹配项
+re.search(pattern=pattern, string=string, flags=None)
+match.group()
+
+# re.findall()  # 找到所有匹配项，返回列表
+re.findall(pattern=pattern, string=string, flags=None)
+
+# re.sub()  # 替换匹配的子串
+re.sub(pattern=pattern, repl=repl, string=string, count=0, flags=None) # 替换，count表示替换最大次数，默认0表示替换所有的匹配
+re.sub(r'\d+', 'x', "苹果10元 香蕉5元 橙子8元", count=2)  # 苹果x元，香蕉x元，橙子8元
+
+# re.split()  # 按匹配模式分割字符串
+re.split(pattern=pattern, string=string, maxsplit=0, flags=0)
+re.split(r'(\d+)', '苹果10个香蕉20个西瓜30个', maxsplit=2)  # ['苹果', '10', '个香蕉', '20', '个西瓜30个']
+
+# re.escape()  # 转义所有可能被解释为正则语法的字符
+re.escape("(1+2)*3")  # \(1\+2\)\*3
+
 
 # 匹配对象方法
-match.group(num=0)  # 匹配的整个表达式的字符串，group()可以一次输入多个组号，返回元组
-match.groups()      # 返回一个包含所有小组字符串的元组
-match.span()        # 返回下标区间
+当使用match(), search(), finditer()时得到match对象
 
+match.group()  # 整个匹配
+match.group(0)  # 整个匹配
+match.group(2)  # 第二个捕获组
+match.group(1, 2)  # 多个捕获组
+
+match.groups()  # 返回所有捕获组的元组
+
+match.span(1)  # 第一个组的位置范围
+match.start(1)  # 第一个组的开始位置
+match.end(2)  # 第二个组的结束位置
+
+
+
+# 标志参数 flags
+
+re.I  # 忽略大小写
+re.M  # 使^和$匹配每行的开始和结束
+re.DOTALL re.S  # 使.匹配包括换行符在内的所有字符
