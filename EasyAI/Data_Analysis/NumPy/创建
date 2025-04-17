@@ -1,0 +1,27 @@
+# ndarray 数组创建
+import numpy as np
+
+# 依据现有数据
+np.array([1, 2, 3, 4, 5])
+np.asarray()    # 当数据源是ndarray时，asarray()不copy出新的副本，与原ndarray绑定
+np.fromfunction(function=lambda i, j: i < j, shape=(3, 4), dtype=int)    # 通过在每个坐标上执行函数来构造数组
+
+# 依据填充方式
+np.zeros(5)  # array([0., 0., 0., 0., 0.])
+np.ones(5)  # array([1., 1., 1., 1., 1.])
+np.empty((3, 4))  # 返回空数组，元素为随机数
+np.eye(3)  # 返回单位矩阵
+np.diag([[]])  # 提取对角线元素
+np.diag([])  # 通过一维数组构造对角矩阵
+np.full((3, 4), fill_value=7)  # 常数数组
+
+# 利用数值范围
+np.arange(0, 10, 2)  # [0 2 4 6 8]
+np.linspace(start=0, stop=2, num=9)  # 返回指定间隔指定数量的数组
+np.random.rand(3, 4)  # [0, 1)随机数组
+np.random.random((3, 4))  # [0, 1)随机数组
+np.random.randint(2, 5, (3, 4)) # 生成shape=(3, 4)的随机数组，value为[2, 5)中的随机整数
+
+# 定义结构
+student_type = np.dtype({'names': ['name', 'age'], 'formats': ['U30', 'i8']})
+students = np.array([('zhangsan', 20), ('lisi', 21)], dtype=student_type)
