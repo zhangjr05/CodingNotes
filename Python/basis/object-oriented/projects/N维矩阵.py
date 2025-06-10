@@ -1,5 +1,6 @@
 class NDMatrix:
-
+    """N维矩阵类"""
+    
     def __init__(self, data):
         self.data = []
         self.shape = self._get_shape(data)
@@ -10,7 +11,7 @@ class NDMatrix:
 
     def _compute_strides(self, shape):
         strides = [1]
-        for dim in reversed(shape[:-1]):
+        for dim in reversed(shape[1:]):
             strides.insert(0, strides[0] * dim)
         return tuple(strides)
     
@@ -102,40 +103,3 @@ class NDMatrix:
         for dim in shape:
             size *= dim
         return size
-    
-
-    def __str__(self):
-        if not self.shape:
-            return "[]"
-        elif len(self.shape) == 1:
-            return str(self.data)
-        elif len(self.shape) == 2:
-            result = "[\n"
-            for i in range(self.shape[0]):
-                row = []
-                for j in range(self.shape[1]):
-                    row.append(str(self[i, j]))
-                result += "  [" + ", ".join(row) + "]\n"
-            result += "]"
-            return result
-        elif len(self.shape) == 3:
-            result = "[\n"
-            for i in range(self.shape[0]):
-                result += "  [\n"
-                for j in range(self.shape[1]):
-                    result += "    ["
-                    row = []
-                    for k in range(self.shape[2]):
-                        row.append(str(self[i, j, k]))
-                    result += ", ".join(row)
-                    result += "],\n"
-                if self.shape[1] > 0:
-                    result = result[:-2] + "\n"
-                result += "  ],\n"
-            if self.shape[0] > 0:
-                result = result[:-2] + "\n"
-            result += "]"
-            return result
-        else:
-            return f"NDMatrix(shape={self.shape}, elements={self.data})"
-        
