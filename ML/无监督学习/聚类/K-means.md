@@ -26,7 +26,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.datasets import make_blobs
 
-def KMeans(X, k, max_iters=100, random_state=0):
+def KMeans(X, k, max_iters=100, random_state=42):
     '''K-means聚类'''
 
     X = np.asarray(X)
@@ -70,7 +70,7 @@ def plot_KMeans(X, labels, centers):
 
 if __name__ == '__main__':
     # 测试代码
-    X, y_true = make_blobs(n_samples=150, centers=3, cluster_std=0.60, random_state=0)
+    X, y_true = make_blobs(n_samples=150, centers=3, cluster_std=0.60, random_state=42)
     labels, centers = KMeans(X, k=3)
     plot_KMeans(X, labels, centers)
 ```
