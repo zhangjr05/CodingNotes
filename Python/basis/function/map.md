@@ -1,6 +1,8 @@
 # map
 
-**map()将函数应用到可迭代对象的每个元素上，返回一个迭代器。**
+**`map` 将函数应用到可迭代对象的每个元素上，返回一个迭代器。**
+
+---
 
 ```python
 numbers = [1, 2, 3, 4, 5]
@@ -18,6 +20,6 @@ print(list(uppercased))  # 输出: ['HELLO', 'WORLD']
 numbers1 = [1, 2, 3]
 numbers2 = [4, 5, 6]
 
-sums = map(lambda x, y: x + y, numbers1, numbers2)
-print(list(sums))  # 输出: [5, 7, 9]
+sums = list(map(lambda x, y: x + y, numbers1, numbers2))
+print(sums)  # 输出: [5, 7, 9]
 ```

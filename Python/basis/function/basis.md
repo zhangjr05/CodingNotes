@@ -15,6 +15,8 @@ def greeting(name: Union[str, int]) -> str:
     return 'Hello, ' + name
 ```
 
+---
+
 ## lambda函数实例
 
 ```python
@@ -27,6 +29,8 @@ print(squared_numbers)
 even_numbers = list(filter(lambda x : x % 2 == 0, numbers))
 print(even_numbers)
 ```
+
+---
 
 ## 可变参数
 
